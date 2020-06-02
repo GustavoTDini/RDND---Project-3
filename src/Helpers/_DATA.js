@@ -1,10 +1,13 @@
-import all from '../images';
+import sarahedo from '../images/Avatar_01.svg';
+import tylermcginnis from '../images/Avatar_09.svg';
+import johndoe from '../images/Avatar_13.svg';
 
-let users = {
+export let users = {
   sarahedo: {
     id: 'sarahedo',
+    password: '123',
     name: 'Sarah Edo',
-    avatarURL: ,
+    avatarURL: sarahedo,
     answers: {
       "8xf0y6ziyjabvozdd253nd": 'optionOne',
       "6ni6ok3ym7mf1p33lnez": 'optionTwo',
@@ -15,8 +18,9 @@ let users = {
   },
   tylermcginnis: {
     id: 'tylermcginnis',
+    password: '123',
     name: 'Tyler McGinnis',
-    avatarURL: '',
+    avatarURL: tylermcginnis,
     answers: {
       "vthrdm985a262al8qx3do": 'optionOne',
       "xj352vofupe1dqz9emx13r": 'optionTwo',
@@ -25,8 +29,9 @@ let users = {
   },
   johndoe: {
     id: 'johndoe',
+    password: '123',
     name: 'John Doe',
-    avatarURL: ,
+    avatarURL: johndoe,
     answers: {
       "xj352vofupe1dqz9emx13r": 'optionOne',
       "vthrdm985a262al8qx3do": 'optionTwo',
@@ -36,7 +41,7 @@ let users = {
   }
 }
 
-let questions = {
+export let questions = {
   "8xf0y6ziyjabvozdd253nd": {
     id: '8xf0y6ziyjabvozdd253nd',
     author: 'sarahedo',
@@ -115,90 +120,4 @@ let questions = {
       text: 'write Swift'
     }
   },
-}
-
-function generateUID () {
-  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-}
-
-export function _getUsers () {
-  return new Promise((res, rej) => {
-    setTimeout(() => res({...users}), 1000)
-  })
-}
-
-export function _getQuestions () {
-  return new Promise((res, rej) => {
-    setTimeout(() => res({...questions}), 1000)
-  })
-}
-
-function formatQuestion ({ optionOneText, optionTwoText, author }) {
-  return {
-    id: generateUID(),
-    timestamp: Date.now(),
-    author,
-    optionOne: {
-      votes: [],
-      text: optionOneText,
-    },
-    optionTwo: {
-      votes: [],
-      text: optionTwoText,
-    }
-  }
-}
-
-export function _saveQuestion (question) {
-  return new Promise((res, rej) => {
-    const authedUser = question.author;
-    const formattedQuestion = formatQuestion(question);
-
-    setTimeout(() => {
-      questions = {
-        ...questions,
-        [formattedQuestion.id]: formattedQuestion
-      }
-      
-      users = {
-        ...users,
-        [authedUser]: {
-          ...users[authedUser],
-          questions: users[authedUser].questions.concat([formattedQuestion.id])
-        }
-      }
-
-      res(formattedQuestion)
-    }, 1000)
-  })
-}
-
-export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
-  return new Promise((res, rej) => {
-    setTimeout(() => {
-      users = {
-        ...users,
-        [authedUser]: {
-          ...users[authedUser],
-          answers: {
-            ...users[authedUser].answers,
-            [qid]: answer
-          }
-        }
-      }
-
-      questions = {
-        ...questions,
-        [qid]: {
-          ...questions[qid],
-          [answer]: {
-            ...questions[qid][answer],
-            votes: questions[qid][answer].votes.concat([authedUser])
-          }
-        }
-      }
-
-      res()
-    }, 500)
-  })
 }
