@@ -174,14 +174,16 @@ button:hover {
 .card-avatar{
   flex-direction: column;
   display: inline-flex;
-  width: max-content;
+  width: 30%;
   text-align: center;
   padding: 8px;
   flex-grow: 2;
 }
 
 .avatar-img{
-  max-height: 350px;
+  height: 250px;
+  width: 250px;
+  margin: auto;
 }
 
 .card-content {
@@ -255,7 +257,8 @@ button:hover {
 
 
 .answer-one{
-  display: flex;
+  display: inline-flex;
+  flex-direction: column;
   background: linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
   background-color: #fe1a00;
   min-height: 100px;
@@ -266,7 +269,8 @@ button:hover {
 }
 
 .answer-two{
-  display:flex;
+  display: inline-flex;
+  flex-direction: column;
 	background:linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
 	background-color:#3d94f6;
   min-height: 100px;
@@ -290,13 +294,11 @@ button:hover {
 .percentage-bar-one{
   background-color: darkred;
   height: fit-content;
-  width: 30%;
 }
 
 .percentage-bar-two{
   background-color:darkblue;
   height: fit-content;
-  width: 70%;
 }
 
 .score-content{

@@ -2,7 +2,10 @@ import { SET_AUTHED_USER } from '../Helpers/Constants'
 
 const loginChecker = (store) => (next) => (action) => {
   if (action.type === SET_AUTHED_USER) {
-    if (action.id === null || action.id === ''){
+    if (action.id === null){
+      return next(action)
+    }
+    if (action.id === ''){
       return store.getState()
     } else if 
       (store.getState().users.hasOwnProperty(action.id)){

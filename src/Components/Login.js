@@ -5,9 +5,39 @@ import { connect } from 'react-redux'
 
 class Login extends Component{
 
+  state ={
+    name: '',
+    password: '',
+  }
+
+  handleChangeName = (e) => {
+    const text = e.target.value
+
+    this.setState(() =>({
+      name: text
+    }))
+
+  }
+
+  handleChangePassword = (e) => {
+    const text = e.target.value
+
+    this.setState(() =>({
+      password: text
+    }))
+
+  }
+
   handleSubmitLogin = (e) => {
     e.preventDefault()
-    this.props.dispatch(setAuthedUser(this.input.value, this.password.value))
+    const { name, password } = this.state
+    const { dispatch } = this.props
+    this.setState(() =>({
+      name: '',
+      password: ''
+    }))
+    dispatch(setAuthedUser(name, password))
+
   }
 
   render(){
@@ -22,14 +52,18 @@ class Login extends Component{
           <input 
             className="login-input" 
             type='text'
-            ref={(input) => this.input = input}/>
+            value={this.state.name}
+            placeholder='Your Name'
+            onChange={(e)=> this.handleChangeName(e)}/>
           <p>Password:</p>
           <input 
             className="login-input" 
-            type='password' 
-            ref={(password) => this.password = password}/>
+            type='password'
+            value={this.state.password}
+            placeholder='Your Password'
+            onChange={(e)=> this.handleChangePassword(e)}/>
           <button
-            onClick={this.handleSubmitLogin}
+            onClick={(e)=> this.handleSubmitLogin(e)}
             className="login-button">Sign In</button>
         </form>
     </div>

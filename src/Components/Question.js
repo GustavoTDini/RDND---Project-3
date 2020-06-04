@@ -1,19 +1,21 @@
 import React, { Component } from "react"
-import avatar from '../images/Avatar_13.svg'
+import { connect } from 'react-redux'
 
 class Question extends Component{
   render(){
     return(
       <div className='question-card shadow  '>
       <div className="card-avatar">
-        <h2>Someone Asks</h2>
-        <img src={avatar} alt='Avatar'/>
+        <h2>{`${this.props.user.name} asks`}</h2>
+        <img className='avatar-img' src={this.props.user.avatarURL} alt='Avatar'/>
       </div>
       <div className='card-content'>
         <h2>Would you rather...</h2>
-        <button className="btn-one selected">Option One</button>
+        <button 
+          className="btn-one">{this.props.question.optionOne.text}</button>
         < span>Or</ span>
-        <button className="btn-two">Option Two</button>
+        <button 
+          className="btn-two">{this.props.question.optionOne.text}</button>
         <button className="confirm-btn">Confirm</button>
       </div>
     </div>
@@ -21,5 +23,14 @@ class Question extends Component{
   }
 }
 
+function mapStateToProps(state, props) {
+  if (state.authedUser !== null) {
+    return {
+      user: state.users[props.userId],
+      question: state.questions[props.question]
+    }
+  }
+  return {}
+}
 
-export default Question;
+export default connect(mapStateToProps)(Question);

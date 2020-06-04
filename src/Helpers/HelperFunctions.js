@@ -1,19 +1,10 @@
-import { users, questions } from './_DATA'
+import { _getUsers, _getQuestions, _saveQuestion, _saveQuestionAnswer } from './_DATA'
+import gold from '../images/gold.png'
+import silver from '../images/silver.png'
+import bronze from '../images/bronze.png'
 
 function generateUID () {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-}
-
-export function _getUsers () {
-  return new Promise((res, rej) => {
-    setTimeout(() => res({...users}), 1000)
-  })
-}
-
-export function _getQuestions () {
-  return new Promise((res, rej) => {
-    setTimeout(() => res({...questions}), 1000)
-  })
 }
 
 export function getInitialData () {
@@ -26,74 +17,25 @@ export function getInitialData () {
   }))
 }
 
-function formatQuestion ({ optionOneText, optionTwoText, author }) {
+export function formatQuestion (question) {
   return {
     id: generateUID(),
+    author: question.authedUser,
     timestamp: Date.now(),
-    author,
     optionOne: {
       votes: [],
-      text: optionOneText,
+      text: question.optionOne,
     },
     optionTwo: {
       votes: [],
-      text: optionTwoText,
+      text: question.optionTwo,
     }
   }
 }
 
-export function _saveQuestion (question) {
-  return new Promise((res, rej) => {
-    const authedUser = question.author;
-    const formattedQuestion = formatQuestion(question);
-
-    setTimeout(() => {
-      questions = {
-        ...questions,
-        [formattedQuestion.id]: formattedQuestion
-      }
-      
-      users = {
-        ...users,
-        [authedUser]: {
-          ...users[authedUser],
-          questions: users[authedUser].questions.concat([formattedQuestion.id])
-        }
-      }
-
-      res(formattedQuestion)
-    }, 1000)
-  })
-}
-
-export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
-  return new Promise((res, rej) => {
-    setTimeout(() => {
-      users = {
-        ...users,
-        [authedUser]: {
-          ...users[authedUser],
-          answers: {
-            ...users[authedUser].answers,
-            [qid]: answer
-          }
-        }
-      }
-
-      questions = {
-        ...questions,
-        [qid]: {
-          ...questions[qid],
-          [answer]: {
-            ...questions[qid][answer],
-            votes: questions[qid][answer].votes.concat([authedUser])
-          }
-        }
-      }
-
-      res()
-    }, 500)
-  })
+export function saveQuestion (info) {
+  console.log('save ' + info)
+  return _saveQuestion(info)
 }
 
 export function createUnensweredList (questionList, answeredList) {
@@ -114,8 +56,33 @@ export function createAnsweredList (questionList) {
   return answeredList
 }
 
-function formatLeaderboard () {
-  return {
-
+export function formatLeaderboard (users) {
+  let leaderList = []
+  for (let user in users){
+    let answeredQuestions = Object.keys(users[user].answers).length
+    let questionMade = users[user].questions.length
+    let ListedUser = {
+      id: users[user].id,
+      name: users[user].name,
+      avatar: users[user].avatarURL,
+      answeredQuestions: answeredQuestions,
+      questionMade: questionMade,
+      totalPoints: answeredQuestions + questionMade,
+      trophy: null
+    }
+    leaderList = leaderList.concat(ListedUser)
   }
+  leaderList.sort((a,b) => b.totalPoints - a.totalPoints)
+  leaderList[0].trophy = gold;
+  leaderList[1].trophy = silver
+  leaderList[2].trophy = bronze
+  return leaderList
+}
+
+export function formatPercent (total, option) {
+  let percent = (option/total)*100
+  if (isNaN(percent)){
+    return 0
+  }
+  return percent
 }

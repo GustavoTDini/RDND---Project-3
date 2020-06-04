@@ -18,7 +18,6 @@ class Home extends Component {
 
   handleAnswerButton = (e) => {
     e.preventDefault()
-
     this.setState(() => ({
       listType: 'answered',
       list: this.props.answeredList
@@ -27,7 +26,6 @@ class Home extends Component {
 
   handleUnenswerButton = (e) => {
     e.preventDefault()
-
     this.setState(() => ({
       listType: 'unanswered',
       list: this.props.unesweredList
@@ -63,7 +61,7 @@ function mapStateToProps(state) {
     return {
       user: state.users[state.authedUser],
       answeredList: createAnsweredList(state.users[state.authedUser].answers),
-      unesweredList: createUnensweredList( state.questions, state.users[state.authedUser].answers )
+      unesweredList: createUnensweredList( state.questions, state.users[state.authedUser].answers)
     }
   }
   return {}

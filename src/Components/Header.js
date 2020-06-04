@@ -2,36 +2,23 @@ import React, { Component } from "react"
 import { NavLink } from 'react-router-dom'
 import placeHolder from '../images/Avatar_placeholder.png'
 import { connect } from 'react-redux'
+import { setAuthedUser } from '../actions/authedUser'
 
 
 class Header extends Component {
   state = {
     avatarImage: placeHolder,
-    logButton: 'Login',
   }
 
-  componentDidUpdate(prevProps) {
-    const { authedUser, user } = this.props
-    console.log('componentDidUpdate: ' + authedUser, user)
-    if (this.props.user !== prevProps.user) {
-      if (authedUser !== null) {
-        this.setState(() => ({
-          avatarImage: user.avatarURL,
-          logButton: 'Logout',
-        }))
-      }
-      else {
-        this.setState(() => ({
-          avatarImage: placeHolder,
-          logButton: 'Login',
-        }))
-      }
+  logout = (e) => {
+    e.preventDefault()
+    if (this.props.authedUser !== null){
+      this.props.dispatch(setAuthedUser(null, null))
     }
   }
 
   render() {
     console.log(this.props)
-    const { avatarImage, logButton } = this.state
     const { authedUser } = this.props
     return (
       <header>
@@ -44,8 +31,20 @@ class Header extends Component {
           <li><NavLink to={`/leaderboard/${authedUser}`} className="header-items header-left" activeClassName='active'>Leader Board</NavLink></li>
           <li>
             <div className="avatar-container header-right">
-              <NavLink to='/login' className="header-items" activeClassName='active'>{logButton}</NavLink>
-              <img src={avatarImage} alt='Avatar' className="header-avatar" />
+              {authedUser === null ? 
+                <NavLink
+                  to='/login'
+                  className="header-items"
+                  activeClassName='active'>Login
+                </NavLink> :
+                <NavLink
+                to='/login'
+                className="header-items"
+                activeClassName='active'
+                onClick={(e) => this.logout(e)}>Logout
+              </NavLink>
+              }
+              <img src={authedUser === null ? placeHolder : this.props.user.avatarURL} alt='Avatar' className="header-avatar" />
             </div>
           </li>
         </ul>

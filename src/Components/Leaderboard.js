@@ -1,39 +1,43 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
-import avatar from '../images/Avatar_13.svg'
-import gold from '../images/gold.png'
-import silver from '../images/silver.png'
-import bronze from '../images/bronze.png'
+import { formatLeaderboard } from '../Helpers/HelperFunctions'
+
 
 class Leaderboard extends Component {
+
   render() {
+    const { leaders } = this.props
     return (
       <ul>
-        <div className='question-card shadow  '>
-          <div className="card-avatar">
-            <h2>Name</h2>
-            <img src={avatar} alt='avatar' />
-            <img className='medal' src={gold} alt='rank medal' />
-          </div>
-          <div className='card-content score-content'>
-            <div className="card-points">
-              <h3>Questions Asked</h3>
-              <div className="points-pill">
-                < span>9</ span>
-              </div>
-              <h3>Questions Answered</h3>
-              <div className="points-pill">
-                < span>5</ span>
-              </div>
-            </div>
+        {leaders.map((user) => (
+          <div key={user.id} className='question-card shadow  '>
             <div className="card-avatar">
-              <h2>Total</h2>
-              <div className='total-points'>
-                < span>14</ span>
+              <h2>{user.name}</h2>
+              <img className='avatar-img' src={user.avatar} alt='avatar' />
+              {user.trophy !== null && 
+              <img className='medal' src={user.trophy} alt='rank medal' />}
+            </div>
+            <div className='card-content score-content'>
+              <div className="card-points">
+                <h3>Questions Asked</h3>
+                <div className="points-pill">
+                  <span>{user.questionMade}</span>
+                </div>
+                <h3>Questions Answered</h3>
+                <div className="points-pill">
+                  <span>{user.answeredQuestions}</span>
+                </div>
+              </div>
+              <div className="card-avatar">
+                <h2>Total</h2>
+                <div className='total-points'>
+                  <span>{user.totalPoints}</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ))}
+
       </ul>
     )
   }
@@ -42,7 +46,7 @@ class Leaderboard extends Component {
 function mapStateToProps(state, { authedUser }) {
   if (authedUser !== null) {
     return {
-      questions: state.questions,
+      leaders: formatLeaderboard(state.users),
     }
   }
   return {}

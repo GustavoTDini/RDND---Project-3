@@ -1,35 +1,56 @@
 import React, { Component } from "react"
-import avatar from '../images/Avatar_13.svg'
+import { connect } from 'react-redux'
+import { formatPercent } from "../Helpers/HelperFunctions"
 
 class AnswQuestion extends Component{
+  
   render(){
+    const { user, question } = this.props
+    let optionOne = question.optionOne.votes.length
+    let optionTwo = question.optionTwo.votes.length
+    let total = optionOne + optionTwo
+    let percentileOne = formatPercent(total,optionOne) + '%'
+    let percentileTwo = formatPercent(total,optionTwo) + '%'
     return(
       <div className='question-card shadow  '>
       <div className="card-avatar">
-        <h2>Someone Asked</h2>
-        <img src={avatar} alt='Avatar'/>
+        <h2>{`${user.name} asked...`}</h2>
+        <img className='avatar-img' src={user.avatarURL} alt='Avatar'/>
       </div>
       <div className='card-content'>
         <h2>Results</h2>
-        <span>Your Choice</span>
-        <div className="answer-one selected">
-          Option One
+        {user.answers[question.id] === 'optionOne' && <span>Your Choice</span>}
+        <div className={user.answers[question.id] === 'optionOne' ? 'answer-one selected' : 'answer-one'}>
+          {question.optionOne.text}
           <div className='percentage-bar'>
-            <div className='percentage-bar-one'>30%</div>
+            <div className='percentage-bar-one' style={{width : percentileOne}}>{percentileOne}</div>
           </div>
+          <span>{`${optionOne} of ${total} chose this`}</span>
         </div>
-        <div className="answer-two">
-          Option Two
+        {user.answers[question.id] === 'optionTwo' && <span>Your Choice</span>}
+        <div className={user.answers[question.id] === 'optionTwo' ? 'answer-two selected' : 'answer-two'}>
+        {question.optionTwo.text}
           <div className='percentage-bar'>
-            <div className='percentage-bar-two'>70%</div>
+            <div className='percentage-bar-two' style={{width : percentileTwo}}>{percentileTwo}</div>
           </div>
+          <span>{`${optionTwo} of ${total} chose this`}</span>
         </div>
-        <button className="confirm-btn">Change</button>
+        <button
+        className="confirm-btn">Change</button>
       </div>
     </div>
     )
   }
 }
 
+function mapStateToProps(state, props) {
+  if (state.authedUser !== null) {
+    return {
+      user: state.users[props.userId],
+      question: state.questions[props.question]
+    }
+  }
+  return {}
+}
 
-export default AnswQuestion;
+export default connect(mapStateToProps)(AnswQuestion);

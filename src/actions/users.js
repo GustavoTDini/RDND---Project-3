@@ -1,8 +1,15 @@
-import { RECEIVE_USERS } from '../Helpers/Constants'
+import { RECEIVE_USERS, ADD_QUESTION_TO_USER } from '../Helpers/Constants'
 
 export function receiveUsers (users){
   return{
     type: RECEIVE_USERS,
     users,
+  }
+}
+
+export function addQuestionToUser (question){
+  return{
+    type: ADD_QUESTION_TO_USER,
+    question,
   }
 }

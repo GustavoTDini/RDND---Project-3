@@ -1,8 +1,9 @@
 import sarahedo from '../images/Avatar_01.svg';
 import tylermcginnis from '../images/Avatar_09.svg';
 import johndoe from '../images/Avatar_13.svg';
+import { formatQuestion } from '../Helpers/HelperFunctions'
 
-export let users = {
+let users = {
   sarahedo: {
     id: 'sarahedo',
     password: '123',
@@ -41,7 +42,7 @@ export let users = {
   }
 }
 
-export let questions = {
+let questions = {
   "8xf0y6ziyjabvozdd253nd": {
     id: '8xf0y6ziyjabvozdd253nd',
     author: 'sarahedo',
@@ -120,4 +121,69 @@ export let questions = {
       text: 'write Swift'
     }
   },
+}
+
+export function _getUsers () {
+  return new Promise((res, rej) => {
+    setTimeout(() => res({...users}), 1000)
+  })
+}
+
+export function _getQuestions () {
+  return new Promise((res, rej) => {
+    setTimeout(() => res({...questions}), 1000)
+  })
+}
+
+export function _saveQuestion (question) {
+  return new Promise((res, rej) => {
+    const formattedQuestion = formatQuestion(question)
+    const authedUser = formattedQuestion.author
+    setTimeout(() => {
+      questions = {
+        ...questions,
+        [formattedQuestion.id]: formattedQuestion
+      }
+      
+      users = {
+        ...users,
+        [authedUser]: {
+          ...users[authedUser],
+          questions: users[authedUser].questions.concat([formattedQuestion.id])
+        }
+      }
+
+      res(formattedQuestion)
+    }, 1000)
+  })
+}
+
+export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      users = {
+        ...users,
+        [authedUser]: {
+          ...users[authedUser],
+          answers: {
+            ...users[authedUser].answers,
+            [qid]: answer
+          }
+        }
+      }
+
+      questions = {
+        ...questions,
+        [qid]: {
+          ...questions[qid],
+          [answer]: {
+            ...questions[qid][answer],
+            votes: questions[qid][answer].votes.concat([authedUser])
+          }
+        }
+      }
+
+      res()
+    }, 500)
+  })
 }

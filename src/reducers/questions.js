@@ -1,4 +1,4 @@
-import { RECEIVE_QUESTIONS } from '../Helpers/Constants'
+import { RECEIVE_QUESTIONS, ADD_QUESTION_TO_USER } from '../Helpers/Constants'
 
 export default function questions (state = {}, action) {
   switch(action.type) {
@@ -7,6 +7,14 @@ export default function questions (state = {}, action) {
         ...state,
         ...action.questions
       }
+
+      case ADD_QUESTION_TO_USER :
+        const { question } = action
+        return {
+          ...state,
+          [question.id]: question,
+        }
+
       default :
       return state
   }

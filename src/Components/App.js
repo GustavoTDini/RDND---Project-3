@@ -6,10 +6,9 @@ import Home from '../Components/Home'
 import Login from '../Components/Login'
 import NewQuestion from './NewQuestion';
 import Leaderboard from './Leaderboard';
-import Question from './Question';
-import AnswQuestion from './AnswQuestion';
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
+import CardList from './CardList';
 
 class App extends Component {
   componentDidMount() {
@@ -28,9 +27,15 @@ class App extends Component {
             : 
             <div>
               <Route path='/home' component={Home} />
-              <Route path='/unanswered' component={Question} />
-              <Route path='/questions' component={AnswQuestion} />
-              <Route path='/myquestions' component={AnswQuestion} />
+              <Route path='/unanswered'>
+                <CardList list='unanswered'/>
+              </Route>
+              <Route path='/questions'>
+                <CardList list='questions'/>
+              </Route>
+              <Route path='/myquestions'>
+                <CardList list='myquestions'/>
+              </Route>
               <Route path='/new' component={NewQuestion} />
               <Route path='/leaderboard' component={Leaderboard} />
             </div>}

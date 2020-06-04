@@ -5,7 +5,7 @@ import { connect } from  'react-redux'
 
 class QuestionList extends Component{
   render(){
-    const { listType, list, answers } = this.props;
+    const { listType, list, answers , questions} = this.props;
     let renderList = []
 
     if (listType === 'unanswered') {
@@ -13,13 +13,14 @@ class QuestionList extends Component{
       <UnenswList 
         key={item.id} 
         question ={item} 
-        answers = {[this.props.questions[item].optionOne.text, this.props.questions[item].optionTwo.text]} />);
+        answers = {[questions[item].optionOne.text, questions[item].optionTwo.text]} 
+        userId ={questions[item].user}/>);
     } else {
       renderList = list.map((item) => 
       <AnswList
         key={item.id}
         option={answers[item]} 
-        answer={this.props.questions[item][answers[item]].text}/>);
+        answer={questions[item][answers[item]].text}/>);
     }
 
     return(

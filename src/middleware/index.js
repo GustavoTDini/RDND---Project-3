@@ -7,5 +7,4 @@ export default applyMiddleware(
   thunk,
   loginChecker,
   logger,
-  
 )
