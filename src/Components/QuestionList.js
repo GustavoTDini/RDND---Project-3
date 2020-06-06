@@ -2,25 +2,34 @@ import React, { Component } from "react"
 import AnswList from "./AnswList"
 import UnenswList from "./UnenswList"
 import { connect } from  'react-redux'
+import EmptyList from './EmptyList'
 
 class QuestionList extends Component{
   render(){
     const { listType, list, answers , questions} = this.props;
     let renderList = []
-
     if (listType === 'unanswered') {
-      renderList = list.map((item) => 
-      <UnenswList 
-        key={item.id} 
-        question ={item} 
-        answers = {[questions[item].optionOne.text, questions[item].optionTwo.text]} 
-        userId ={questions[item].user}/>);
-    } else {
-      renderList = list.map((item) => 
-      <AnswList
-        key={item.id}
-        option={answers[item]} 
-        answer={questions[item][answers[item]].text}/>);
+      if (list.length === 0) {
+        renderList = <EmptyList />
+      } else {
+        renderList = list.map((item) =>
+        <UnenswList 
+          key={item} 
+          question ={item} 
+          answers = {[questions[item].optionOne.text, questions[item].optionTwo.text]} 
+          userId ={questions[item].user}/>);
+      }
+
+    } else if (listType === 'answered'){
+      if (list.length === 0) {
+        renderList = <EmptyList />
+      } else {
+        renderList = list.map((item) => 
+        <AnswList
+          key={item}
+          option={answers[item]} 
+          answer={questions[item][answers[item]].text}/>);
+      }
     }
 
     return(

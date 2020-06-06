@@ -18,15 +18,14 @@ class Header extends Component {
   }
 
   render() {
-    console.log(this.props)
     const { authedUser } = this.props
     return (
       <header>
         <ul className="header shadow">
           <li><NavLink to={`/home/${authedUser}`} className='header-items header-left' activeClassName='active'>Home</NavLink></li>
-          <li><NavLink to={`/unanswered/${authedUser}`} className="header-items header-left" activeClassName='active'>Unanswered Questions</NavLink></li>
-          <li><NavLink to={`/questions/${authedUser}`} className="header-items header-left" activeClassName='active'>Answered Questions</NavLink></li>
-          <li><NavLink to={`/myquestions/${authedUser}`} className="header-items header-left" activeClassName='active'>My Questions</NavLink></li>
+          <li><NavLink to={`/unansweredList/${authedUser}`} className="header-items header-left" activeClassName='active'>Unanswered Questions</NavLink></li>
+          <li><NavLink to={`/questionList/${authedUser}`} className="header-items header-left" activeClassName='active'>Answered Questions</NavLink></li>
+          <li><NavLink to={`/myquestionsList/${authedUser}`} className="header-items header-left" activeClassName='active'>My Questions</NavLink></li>
           <li><NavLink to={`/new/${authedUser}`} className="header-items header-left" activeClassName='active'>New Question</NavLink></li>
           <li><NavLink to={`/leaderboard/${authedUser}`} className="header-items header-left" activeClassName='active'>Leader Board</NavLink></li>
           <li>

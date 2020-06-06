@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 
-class QuestionList extends Component{
+class AnswList extends Component{
   render(){
     return(
       <div className='question-card shadow'>
@@ -13,4 +13,4 @@ class QuestionList extends Component{
   }
 }
 
-export default QuestionList;
+export default AnswList;

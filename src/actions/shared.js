@@ -1,8 +1,7 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
-import { saveQuestion } from '../Helpers/HelperFunctions'
-import { getInitialData } from '../Helpers/HelperFunctions'
-import { receiveUsers, addQuestionToUser } from './users'
-import { receiveQuestions, addQuestion } from './questions'
+import { getInitialData , saveQuestion, saveQuestionAnswer  } from '../Helpers/HelperFunctions'
+import { receiveUsers, addQuestionToUser, addAnswerToUser } from './users'
+import { receiveQuestions, addQuestion, addQuestionAnswer } from './questions'
 import { setAuthedUser } from './authedUser'
 
 export function handleInitialData () {
@@ -30,6 +29,23 @@ export function handleInitialData () {
     .then((question) =>{
       dispatch(addQuestion(question))
       dispatch(addQuestionToUser(question))
+      dispatch(hideLoading())
+    })
+  }
+}
+
+export function handleAddAnswerToQuestion (questionId, answer) {
+  return (dispatch, getState) => {
+    const { authedUser } = getState()
+    dispatch(showLoading())
+    return saveQuestionAnswer({
+      authedUser,
+      questionId,
+      answer,
+    })
+    .then(() =>{
+      dispatch(addAnswerToUser(questionId, authedUser, answer))
+      dispatch(addQuestionAnswer(questionId, authedUser, answer))
       dispatch(hideLoading())
     })
   }

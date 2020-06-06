@@ -1,14 +1,38 @@
-import sarahedo from '../images/Avatar_01.svg';
-import tylermcginnis from '../images/Avatar_09.svg';
-import johndoe from '../images/Avatar_13.svg';
-import { formatQuestion } from '../Helpers/HelperFunctions'
+import { formatQuestion, formatUser } from '../Helpers/HelperFunctions'
 
 let users = {
+  gustavotdini: {
+    id: 'gustavotdini',
+    password: '123',
+    name: 'Gustavo Trevisan Dini',
+    avatarURL: '/static/media/Avatar_12.23aef523.svg',
+    answers: {
+    },
+    questions: []
+  },
+  isadini: {
+    id: 'isadini',
+    password: '123',
+    name: 'Isadora Alves de Lima Dini',
+    avatarURL: '/static/media/Avatar_06.b4e703f3.svg',
+    answers: {
+    },
+    questions: []
+  },
+  mariaal: {
+    id: 'mariaal',
+    password: '123',
+    name: 'Mariana Arruda Alves de Lima',
+    avatarURL: '/static/media/Avatar_04.ad142434.svg',
+    answers: {
+    },
+    questions: []
+  },
   sarahedo: {
     id: 'sarahedo',
     password: '123',
     name: 'Sarah Edo',
-    avatarURL: sarahedo,
+    avatarURL: "/static/media/Avatar_01.f1236808.svg",
     answers: {
       "8xf0y6ziyjabvozdd253nd": 'optionOne',
       "6ni6ok3ym7mf1p33lnez": 'optionTwo',
@@ -21,7 +45,7 @@ let users = {
     id: 'tylermcginnis',
     password: '123',
     name: 'Tyler McGinnis',
-    avatarURL: tylermcginnis,
+    avatarURL: '/static/media/Avatar_09.a915e564.svg',
     answers: {
       "vthrdm985a262al8qx3do": 'optionOne',
       "xj352vofupe1dqz9emx13r": 'optionTwo',
@@ -32,7 +56,7 @@ let users = {
     id: 'johndoe',
     password: '123',
     name: 'John Doe',
-    avatarURL: johndoe,
+    avatarURL: "/static/media/Avatar_13.0661bb8f.svg",
     answers: {
       "xj352vofupe1dqz9emx13r": 'optionOne',
       "vthrdm985a262al8qx3do": 'optionTwo',
@@ -158,7 +182,7 @@ export function _saveQuestion (question) {
   })
 }
 
-export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
+export function _saveQuestionAnswer ({ authedUser, questionId, answer }) {
   return new Promise((res, rej) => {
     setTimeout(() => {
       users = {
@@ -167,23 +191,37 @@ export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
           ...users[authedUser],
           answers: {
             ...users[authedUser].answers,
-            [qid]: answer
+            [questionId]: answer
           }
         }
       }
 
       questions = {
         ...questions,
-        [qid]: {
-          ...questions[qid],
+        [questionId]: {
+          ...questions[questionId],
           [answer]: {
-            ...questions[qid][answer],
-            votes: questions[qid][answer].votes.concat([authedUser])
+            ...questions[questionId][answer],
+            votes: questions[questionId][answer].votes.concat([authedUser])
           }
         }
       }
 
       res()
     }, 500)
+  })
+}
+
+export function _saveUser (user) {
+  return new Promise((res, rej) => {
+    const formattedUser = formatUser(user)
+    setTimeout(() => {
+      users = {
+        ...users,
+        [formattedUser.id]: formattedUser
+      }
+
+      res(formattedUser)
+    }, 1000)
   })
 }

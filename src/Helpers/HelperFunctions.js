@@ -1,4 +1,4 @@
-import { _getUsers, _getQuestions, _saveQuestion, _saveQuestionAnswer } from './_DATA'
+import { _getUsers, _getQuestions, _saveQuestion, _saveQuestionAnswer, _saveUser } from './_DATA'
 import gold from '../images/gold.png'
 import silver from '../images/silver.png'
 import bronze from '../images/bronze.png'
@@ -34,8 +34,17 @@ export function formatQuestion (question) {
 }
 
 export function saveQuestion (info) {
-  console.log('save ' + info)
   return _saveQuestion(info)
+}
+
+export function saveQuestionAnswer (info) {
+  console.log(info)
+  return _saveQuestionAnswer(info)
+}
+
+export function saveUser (info) {
+  console.log(info)
+  return _saveUser(info)
 }
 
 export function createUnensweredList (questionList, answeredList) {
@@ -86,3 +95,15 @@ export function formatPercent (total, option) {
   }
   return percent
 }
+
+export function formatUser (user) {
+  return {
+    id: user.id,
+    password: user.password,
+    name: user.name,
+    avatarURL: user.avatarURL,
+    answers: {},
+    questions: []
+  }
+}
+

@@ -12,7 +12,7 @@
 }
 
 ::placeholder {
-  color: whitesmoke;
+  color: #778899;
 }
 
 ul{
@@ -155,6 +155,10 @@ button:hover {
   width: 50%;
 }
 
+.avatar-carrousel{
+  display: flex;
+}
+
 /* Question Styles */
 
 .question-card{
@@ -169,6 +173,11 @@ button:hover {
   display: flex;
   max-width: 1024px;
   margin-top: 24px;
+}
+
+.center-text{
+  text-align: center;
+  margin: auto;
 }
 
 .card-avatar{
@@ -255,6 +264,7 @@ button:hover {
   border: inset;
 }
 
+/* Answered Question Styles */
 
 .answer-one{
   display: inline-flex;
@@ -300,6 +310,8 @@ button:hover {
   background-color:darkblue;
   height: fit-content;
 }
+
+/* Leaderboard Styles */
 
 .score-content{
   display: inline-flex;

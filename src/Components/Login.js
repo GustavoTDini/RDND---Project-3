@@ -2,12 +2,14 @@ import React, { Component } from "react"
 import { setAuthedUser } from '../actions/authedUser'
 import react_redux_logo from '../images/react-redux.png'
 import { connect } from 'react-redux'
+import { Redirect } from "react-router-dom";
 
 class Login extends Component{
 
   state ={
     name: '',
     password: '',
+    newUser: false
   }
 
   handleChangeName = (e) => {
@@ -16,7 +18,6 @@ class Login extends Component{
     this.setState(() =>({
       name: text
     }))
-
   }
 
   handleChangePassword = (e) => {
@@ -25,7 +26,6 @@ class Login extends Component{
     this.setState(() =>({
       password: text
     }))
-
   }
 
   handleSubmitLogin = (e) => {
@@ -37,10 +37,20 @@ class Login extends Component{
       password: ''
     }))
     dispatch(setAuthedUser(name, password))
+  }
 
+  handleNavToNewUser = (e) =>{
+    e.preventDefault()
+    this.setState(() =>({
+      newUser: true
+    }))
   }
 
   render(){
+
+    if (this.state.newUser){
+      return <Redirect to="/newUser" push />
+    }
 
     return(
       <div className='login-box shadow'>
@@ -66,6 +76,9 @@ class Login extends Component{
             onClick={(e)=> this.handleSubmitLogin(e)}
             className="login-button">Sign In</button>
         </form>
+        <button
+            onClick={(e)=> this.handleNavToNewUser(e)}
+            className="login-button">New User</button>
     </div>
     )
   }

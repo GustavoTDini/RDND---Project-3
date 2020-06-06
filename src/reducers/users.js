@@ -1,4 +1,4 @@
-import { RECEIVE_USERS, ADD_QUESTION_TO_USER } from '../Helpers/Constants'
+import { RECEIVE_USERS, ADD_QUESTION_TO_USER, ADD_ANSWER_TO_USER, ADD_USER } from '../Helpers/Constants'
 
 export default function users (state = {}, action) {
   switch(action.type) {
@@ -7,10 +7,14 @@ export default function users (state = {}, action) {
         ...state,
         ...action.users
       }
+      case ADD_USER :
+        const { newUser } = action
+        return {
+          ...state,
+          [newUser.id]: newUser,
+        }
     case ADD_QUESTION_TO_USER :
       const { question } = action
-      console.log(question, state)
-      console.log(state[question.author].questions)
         return {
           ...state,
           [question.author]: {
@@ -18,6 +22,18 @@ export default function users (state = {}, action) {
           questions: state[question.author].questions.concat([question.id])
           }
         }
+      case ADD_ANSWER_TO_USER :
+        const { questionId, authedUser, answer } = action
+          return {
+            ...state,
+            [authedUser]: {
+              ...state[authedUser],
+              answers: {
+                ...state[authedUser].answers,
+                [questionId]: answer
+              }
+            }
+          }
     default :
       return state
   }
