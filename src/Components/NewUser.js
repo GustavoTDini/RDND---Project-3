@@ -75,14 +75,16 @@ class NewUser extends Component {
     e.preventDefault()
     const { name, password, login, passwordConfirm, avatarURL } = this.state
     const { dispatch } = this.props
-    console.log(name)
+    if (name === '' || name === null || login === '' || login === null) {
+      return alert("Please enter a valid name and login!")
+    } 
     if ( passwordConfirm === password){
       dispatch(handleAddNewUser(login, name, password,avatarURL ))
       this.setState(() => ({
         newUserCreated: true
       }))
     } else{
-      alert("Please confirm your password")
+      alert("Please confirm your password!")
     }
     
   }

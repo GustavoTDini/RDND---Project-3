@@ -28,7 +28,8 @@ class CardList extends Component {
             key={item}
             question={item}
             answers={[questions[item].optionOne.text, questions[item].optionTwo.text]}
-            userId={questions[item].author} />);
+            userId={questions[item].author} 
+            authedUserList={false}/>);
       }
     } else if (list === 'myquestions') {
       if (myQuestions.length === 0) {
@@ -39,7 +40,8 @@ class CardList extends Component {
             key={item}
             question={item}
             answers={[questions[item].optionOne.text, questions[item].optionTwo.text]}
-            userId={questions[item].author} />);
+            userId={questions[item].author}
+            authedUserList={true}/>);
       }
     }
 

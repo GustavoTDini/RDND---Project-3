@@ -13,7 +13,9 @@ class Header extends Component {
   logout = (e) => {
     e.preventDefault()
     if (this.props.authedUser !== null){
-      this.props.dispatch(setAuthedUser(null, null))
+      if (window.confirm("Do you really want to leave?")) { 
+        this.props.dispatch(setAuthedUser(null, null))
+      }
     }
   }
 

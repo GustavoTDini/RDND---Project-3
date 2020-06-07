@@ -1,16 +1,37 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { formatPercent } from "../Helpers/HelperFunctions"
+import { Redirect } from "react-router-dom";
+import { handleDeleteAnswerToQuestion } from "../actions/shared";
 
 class AnswQuestion extends Component{
+
+  state = {
+    changeAnswer:false
+  }
+
+  handleChangeAnswer = (e) => {
+    e.preventDefault()
+    const { user, question } = this.props
+    this.props.dispatch(handleDeleteAnswerToQuestion(question.id, user.answers[question.id]))
+    this.setState({
+      changeAnswer: true
+    })
+  }
   
   render(){
+    if (this.state.changeAnswer){
+      return <Redirect
+      to= '/unansweredList/'
+      push />
+    }
+
     const { user, question } = this.props
     let optionOne = question.optionOne.votes.length
     let optionTwo = question.optionTwo.votes.length
     let total = optionOne + optionTwo
-    let percentileOne = formatPercent(total,optionOne) + '%'
-    let percentileTwo = formatPercent(total,optionTwo) + '%'
+    let percentileOne = formatPercent(total,optionOne).toFixed(2) + '%'
+    let percentileTwo = formatPercent(total,optionTwo).toFixed(2) + '%'
     return(
       <div className='question-card shadow  '>
       <div className="card-avatar">
@@ -35,8 +56,10 @@ class AnswQuestion extends Component{
           </div>
           <span>{`${optionTwo} of ${total} chose this`}</span>
         </div>
+        {this.props.authedUserList ? null : 
         <button
-        className="confirm-btn">Change</button>
+        className="confirm-btn"
+        onClick={(e) => this.handleChangeAnswer(e)}>Change</button>}
       </div>
     </div>
     )
@@ -47,7 +70,7 @@ function mapStateToProps(state, props) {
   if (state.authedUser !== null) {
     return {
       user: state.users[props.userId],
-      question: state.questions[props.question]
+      question: state.questions[props.question],
     }
   }
   return {}

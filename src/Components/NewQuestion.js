@@ -1,12 +1,14 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { handleAddQuestionAndUser } from "../actions/shared"
+import { Redirect } from "react-router-dom";
 
 class NewQuestion extends Component{
 
   state ={
     optionOne: '',
     optionTwo: '',
+    newQuestionCreated: false,
   }
 
   handleChangeOptionOne = (e) => {
@@ -30,13 +32,23 @@ class NewQuestion extends Component{
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.dispatch(handleAddQuestionAndUser(this.state.optionOne, this.state.optionTwo))
-    this.setState(() =>({
-      optionOne: '',
-      optionTwo: ''
-    }))
-  }
+      this.setState({
+        optionOne: '',
+        optionTwo: '',
+        newQuestionCreated: true
+      })
+
+      
+    }
 
   render(){
+
+    if (this.state.newQuestionCreated){
+      return <Redirect
+        to= '/myquestionsList/'
+        push />
+    }
+
     return(
       <div className='question-card shadow  '>
       <div className='card-content'>

@@ -1,4 +1,4 @@
-import { RECEIVE_QUESTIONS, ADD_QUESTION, ADD_QUESTION_ANSWER } from '../Helpers/Constants'
+import { RECEIVE_QUESTIONS, ADD_QUESTION, ADD_QUESTION_ANSWER, REMOVE_QUESTION_ANSWER } from '../Helpers/Constants'
 
 export default function questions (state = {}, action) {
   switch(action.type) {
@@ -24,6 +24,18 @@ export default function questions (state = {}, action) {
               [answer]:{
               ...state[questionId][answer],
               votes: state[questionId][answer].votes.concat([user])
+            }
+          }
+        }
+
+        case REMOVE_QUESTION_ANSWER :
+          return {
+            ...state,
+            [action.questionId]: {
+              ...state[action.questionId],
+              [action.answer]:{
+              ...state[action.questionId][action.answer],
+              votes: state[action.questionId][action.answer].votes.filter((user) => user !== action.user)
             }
           }
         }

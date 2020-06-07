@@ -23,6 +23,7 @@ class Question extends Component{
   render(){
     const { selectedAnswer } = this.state
     const { user, question } = this.props
+
     return(
       <div className='question-card shadow'>
       <div className="card-avatar">

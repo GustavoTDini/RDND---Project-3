@@ -1,23 +1,23 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
-import { getInitialData , saveQuestion, saveQuestionAnswer  } from '../Helpers/HelperFunctions'
-import { receiveUsers, addQuestionToUser, addAnswerToUser } from './users'
-import { receiveQuestions, addQuestion, addQuestionAnswer } from './questions'
+import { getInitialData, saveQuestion, saveQuestionAnswer , deleteQuestionAnswer} from '../Helpers/HelperFunctions'
+import { receiveUsers, addQuestionToUser, addAnswerToUser, removeUserAnswers } from './users'
+import { receiveQuestions, addQuestion, addQuestionAnswer, removeQuestionAnswer } from './questions'
 import { setAuthedUser } from './authedUser'
 
-export function handleInitialData () {
+export function handleInitialData() {
   return (dispatch) => {
     dispatch(showLoading())
     return getInitialData()
-    .then(({ users, questions }) =>{
-      dispatch(receiveUsers(users))
-      dispatch(receiveQuestions(questions))
-      dispatch(setAuthedUser(null, null))
-      dispatch(hideLoading())
-    })
+      .then(({ users, questions }) => {
+        dispatch(receiveUsers(users))
+        dispatch(receiveQuestions(questions))
+        dispatch(setAuthedUser(null, null))
+        dispatch(hideLoading())
+      })
   }
 }
 
- export function handleAddQuestionAndUser (optionOne, optionTwo) {
+export function handleAddQuestionAndUser(optionOne, optionTwo) {
   return (dispatch, getState) => {
     const { authedUser } = getState()
     dispatch(showLoading())
@@ -26,15 +26,15 @@ export function handleInitialData () {
       optionTwo,
       authedUser
     })
-    .then((question) =>{
-      dispatch(addQuestion(question))
-      dispatch(addQuestionToUser(question))
-      dispatch(hideLoading())
-    })
+      .then((question) => {
+        dispatch(addQuestion(question))
+        dispatch(addQuestionToUser(question))
+        dispatch(hideLoading())
+      })
   }
 }
 
-export function handleAddAnswerToQuestion (questionId, answer) {
+export function handleAddAnswerToQuestion(questionId, answer) {
   return (dispatch, getState) => {
     const { authedUser } = getState()
     dispatch(showLoading())
@@ -43,9 +43,26 @@ export function handleAddAnswerToQuestion (questionId, answer) {
       questionId,
       answer,
     })
+      .then(() => {
+        dispatch(addAnswerToUser(questionId, authedUser, answer))
+        dispatch(addQuestionAnswer(questionId, authedUser, answer))
+        dispatch(hideLoading())
+      })
+  }
+}
+
+export function handleDeleteAnswerToQuestion (questionId, answer) {
+  return (dispatch, getState) => {
+    const { authedUser } = getState()
+    dispatch(showLoading())
+    return deleteQuestionAnswer({
+      authedUser,
+      questionId,
+      answer,
+    })
     .then(() =>{
-      dispatch(addAnswerToUser(questionId, authedUser, answer))
-      dispatch(addQuestionAnswer(questionId, authedUser, answer))
+      dispatch(removeUserAnswers(questionId, authedUser, answer))
+      dispatch(removeQuestionAnswer(questionId, authedUser, answer))
       dispatch(hideLoading())
     })
   }

@@ -9,8 +9,6 @@ import Leaderboard from './Leaderboard';
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import CardList from './CardList';
-import Question from './Question'
-import AnswQuestion from './AnswQuestion'
 import NewUser from './NewUser'
 
 class App extends Component {
@@ -46,15 +44,6 @@ class App extends Component {
               <Route path='/new' component={NewQuestion} />
               <Route path='/leaderboard' component={Leaderboard} />
               <Route path='/newUser' component={NewUser} />
-              <Route path='/unansweredQuestion'>
-                <Question/>
-              </Route>
-              <Route path='/answeredQuestion'>
-                <AnswQuestion/>
-              </Route>
-              <Route path='/answeredQuestion'>
-                <NewUser/>
-              </Route>
             </Fragment>}
         </Fragment>
       </Router>

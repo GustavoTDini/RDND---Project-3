@@ -1,4 +1,4 @@
-import { _getUsers, _getQuestions, _saveQuestion, _saveQuestionAnswer, _saveUser } from './_DATA'
+import { _getUsers, _getQuestions, _saveQuestion, _saveQuestionAnswer, _saveUser, _deleteQuestionAnswer} from './_DATA'
 import gold from '../images/gold.png'
 import silver from '../images/silver.png'
 import bronze from '../images/bronze.png'
@@ -38,12 +38,14 @@ export function saveQuestion (info) {
 }
 
 export function saveQuestionAnswer (info) {
-  console.log(info)
   return _saveQuestionAnswer(info)
 }
 
+export function deleteQuestionAnswer (info) {
+  return _deleteQuestionAnswer(info)
+}
+
 export function saveUser (info) {
-  console.log(info)
   return _saveUser(info)
 }
 
@@ -107,3 +109,10 @@ export function formatUser (user) {
   }
 }
 
+export function removeItem (removedItem, originalObject) {
+  console.log(removedItem)
+  console.log(originalObject)
+  let { [removedItem]: _, ...newObject } = originalObject
+  console.log(newObject)
+  return newObject
+}

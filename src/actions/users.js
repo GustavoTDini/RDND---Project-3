@@ -1,4 +1,4 @@
-import { RECEIVE_USERS, ADD_QUESTION_TO_USER, ADD_ANSWER_TO_USER , ADD_USER} from '../Helpers/Constants'
+import { RECEIVE_USERS, ADD_QUESTION_TO_USER, ADD_ANSWER_TO_USER , ADD_USER, REMOVE_ANSWER_FROM_USER} from '../Helpers/Constants'
 import { showLoading, hideLoading } from 'react-redux-loading'
 import { saveUser } from '../Helpers/HelperFunctions'
 
@@ -42,6 +42,15 @@ export function addQuestionToUser (question){
 export function addAnswerToUser (questionId, authedUser, answer){
   return{
     type: ADD_ANSWER_TO_USER,
+    questionId,
+    authedUser,
+    answer
+  }
+}
+
+export function removeUserAnswers (questionId, authedUser, answer){
+  return{
+    type: REMOVE_ANSWER_FROM_USER,
     questionId,
     authedUser,
     answer
