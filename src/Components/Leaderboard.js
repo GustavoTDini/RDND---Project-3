@@ -44,6 +44,7 @@ class Leaderboard extends Component {
 }
 
 function mapStateToProps(state, { authedUser }) {
+  // Get the current leader List based on the store
   if (authedUser !== null) {
     return {
       leaders: formatLeaderboard(state.users),

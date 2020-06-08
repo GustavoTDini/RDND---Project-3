@@ -15,6 +15,7 @@ import avatar14 from '../images/Avatar_14.svg';
 import avatar15 from '../images/Avatar_15.svg';
 import avatar16 from '../images/Avatar_16.svg';
 
+// create a images array to feed the avatars in create user component
 export default [
   avatar1,
   avatar2,

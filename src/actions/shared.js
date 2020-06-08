@@ -17,6 +17,7 @@ export function handleInitialData() {
   }
 }
 
+/* This Action includes changing data in user and question, as os is in the shared actions*/
 export function handleAddQuestionAndUser(optionOne, optionTwo) {
   return (dispatch, getState) => {
     const { authedUser } = getState()
@@ -34,6 +35,7 @@ export function handleAddQuestionAndUser(optionOne, optionTwo) {
   }
 }
 
+/* This Action includes changing data in user and question, as os is in the shared actions*/
 export function handleAddAnswerToQuestion(questionId, answer) {
   return (dispatch, getState) => {
     const { authedUser } = getState()
@@ -51,6 +53,7 @@ export function handleAddAnswerToQuestion(questionId, answer) {
   }
 }
 
+/* This Action includes changing data in user and question, as os is in the shared actions*/
 export function handleDeleteAnswerToQuestion (questionId, answer) {
   return (dispatch, getState) => {
     const { authedUser } = getState()

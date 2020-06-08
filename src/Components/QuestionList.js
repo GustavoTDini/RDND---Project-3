@@ -8,6 +8,8 @@ class QuestionList extends Component{
   render(){
     const { listType, list, answers , questions} = this.props;
     let renderList = []
+
+    // check which list wil be rendered and save in renderList
     if (listType === 'unanswered') {
       if (list.length === 0) {
         renderList = <EmptyList />
@@ -19,7 +21,6 @@ class QuestionList extends Component{
           answers = {[questions[item].optionOne.text, questions[item].optionTwo.text]} 
           userId ={questions[item].user}/>);
       }
-
     } else if (listType === 'answered'){
       if (list.length === 0) {
         renderList = <EmptyList />
@@ -31,7 +32,6 @@ class QuestionList extends Component{
           answer={questions[item][answers[item]].text}/>);
       }
     }
-
     return(
       <ul>
         {renderList}

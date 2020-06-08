@@ -48,19 +48,20 @@ class NewUser extends Component {
     }))
   }
 
+  /* handle the avatar carrousel, up define if iis going up or dowm os the array, test if the array to circle it*/
   handleChangeAvatar = (e, up) => {
     e.preventDefault()
     const { selectedAvatar } = this.state
     let newAvatar = selectedAvatar
     if( up === true){
-      if (newAvatar === 15){
+      if (newAvatar === avatarsArray.length - 1){
         newAvatar = 0
       } else{
         newAvatar = newAvatar + 1
       }
     } else {
       if (newAvatar === 0){
-        newAvatar = 15
+        newAvatar = avatarsArray.length - 1
       } else{
         newAvatar = newAvatar - 1
       }
@@ -73,6 +74,7 @@ class NewUser extends Component {
 
   handleSubmitCreateNewUser = (e) => {
     e.preventDefault()
+    // in this method I test if nothing is null or empty, and if the password is repeated, the rest of the tests is made in the middleware
     const { name, password, login, passwordConfirm, avatarURL } = this.state
     const { dispatch } = this.props
     if (name === '' || name === null || login === '' || login === null) {
@@ -91,6 +93,7 @@ class NewUser extends Component {
 
   render() {
 
+    // check if newUserCreated is true to redirect
     if (this.state.newUserCreated){
       return <Redirect to="/login" push />
     }

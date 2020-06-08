@@ -31,18 +31,22 @@ class NewQuestion extends Component{
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.dispatch(handleAddQuestionAndUser(this.state.optionOne, this.state.optionTwo))
+    //test if the user actually wrote something on the options to submit
+    if (this.state.optionOne === '' || this.state.optionTwo === ''){
+      alert('Please choose a Valid Option')
+    } else{
+          this.props.dispatch(handleAddQuestionAndUser(this.state.optionOne, this.state.optionTwo))
       this.setState({
         optionOne: '',
         optionTwo: '',
         newQuestionCreated: true
       })
-
-      
     }
+  }
 
   render(){
 
+    // check if newQuestionCreated is true to redirect
     if (this.state.newQuestionCreated){
       return <Redirect
         to= '/myquestionsList/'

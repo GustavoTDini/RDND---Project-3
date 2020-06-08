@@ -9,6 +9,8 @@ class CardList extends Component {
   render() {
     const { list, answeredList, unesweredList, myQuestions, questions } = this.props;
     let renderList = []
+
+    // check which list wil be rendered and save in renderList
     if (list === 'unanswered') {
       if (unesweredList.length === 0) {
         renderList = <EmptyList />
@@ -54,6 +56,7 @@ class CardList extends Component {
 }
 
 function mapStateToProps(state, { authedUser }) {
+  //get all possible lists from the Store
   if (authedUser !== null) {
     return {
       answeredList: createAnsweredList(state.users[state.authedUser].answers),

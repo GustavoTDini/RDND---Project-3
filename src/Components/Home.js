@@ -9,6 +9,7 @@ class Home extends Component {
     list: []
   }
 
+  // set the initial list as unanswered and populate it
   componentDidMount(){
     this.setState(() => ({
       listType: 'unanswered',
@@ -16,6 +17,7 @@ class Home extends Component {
     }))
   }
 
+  // set list to answered
   handleAnswerButton = (e) => {
     e.preventDefault()
     this.setState(() => ({
@@ -24,6 +26,7 @@ class Home extends Component {
     }))
   }
 
+  // set list to unanswered
   handleUnenswerButton = (e) => {
     e.preventDefault()
     this.setState(() => ({
@@ -57,6 +60,7 @@ class Home extends Component {
 }
 
 function mapStateToProps(state) {
+  // get the user and create the answered and unanswered list
   if (state.authedUser !== null) {
     return {
       user: state.users[state.authedUser],

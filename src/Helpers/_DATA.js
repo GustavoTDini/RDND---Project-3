@@ -1,4 +1,4 @@
-import { formatQuestion, formatUser } from '../Helpers/HelperFunctions'
+import { formatQuestion, formatUser, removeItem } from '../Helpers/HelperFunctions'
 
 let users = {
   gustavotdini: {
@@ -263,11 +263,11 @@ let questions = {
     author: 'mariaal',
     timestamp: 1591494888659,
     optionOne: {
-      votes: ["mariaal", "isadini", "johndoe"],
+      votes: ["mariaal", "isadini"],
       text: 'Be asked the same question over and over again',
     },
     optionTwo: {
-      votes: ["gustavotdini", "johndoe", "tylermcginnis"],
+      votes: ["gustavotdini", "tylermcginnis" , "johndoe"],
       text: 'Never be spoken to ever again'
     }
   },
@@ -429,223 +429,21 @@ let questions = {
   },
 }
 
-
-
-/*
-questions:
-
-ebq2m6oo1dab6yitu1a8v7:
-author: "mariaal"
-id: "ebq2m6oo1dab6yitu1a8v7"
-optionOne:
-text: "Be asked the same question over and over again "
-votes: ["sarahedo"]
-__proto__: Object
-optionTwo:
-text: "Never be spoken to ever again"
-votes: (3) ["gustavotdini", "johndoe", "tylermcginnis"]
-__proto__: Object
-timestamp: 1591494888659
-__proto__: Object
-fu90qg4qil94gu9cp68w1g:
-author: "gustavotdini"
-id: "fu90qg4qil94gu9cp68w1g"
-optionOne:
-text: "Have universal respect"
-votes: (2) ["mariaal", "gustavotdini"]
-__proto__: Object
-optionTwo:
-text: "Have unlimited power"
-votes: (2) ["johndoe", "tylermcginnis"]
-__proto__: Object
-timestamp: 1591494309985
-__proto__: Object
-inl965559ijigrj1cgixc:
-author: "mariaal"
-id: "inl965559ijigrj1cgixc"
-optionOne:
-text: "Walk to work in heels"
-votes: (4) ["mariaal", "isadini", "johndoe", "sarahedo"]
-__proto__: Object
-optionTwo:
-text: " Drive to work in reverse"
-votes: (2) ["gustavotdini", "tylermcginnis"]
-__proto__: Object
-timestamp: 1591495312050
-__proto__: Object
-loxhs1bqm25b708cmbf3g:
-author: "tylermcginnis"
-id: "loxhs1bqm25b708cmbf3g"
-optionOne:
-text: "be a front-end developer"
-votes: (2) ["gustavotdini", "tylermcginnis"]
-__proto__: Object
-optionTwo:
-text: "be a back-end developer"
-votes: ["sarahedo"]
-__proto__: Object
-timestamp: 1482579767190
-__proto__: Object
-lpkebkv2hr7dyfheb229s6:
-author: "mariaal"
-id: "lpkebkv2hr7dyfheb229s6"
-optionOne:
-text: "Be a criticized"
-votes: ["johndoe"]
-__proto__: Object
-optionTwo:
-text: " Be ignored"
-votes: (3) ["mariaal", "gustavotdini", "sarahedo"]
-__proto__: Object
-timestamp: 1591494810135
-__proto__: Object
-mhmgvt644yz1w3g33p3b:
-author: "mariaal"
-id: "mhmgvt644yz1w3g33p3b"
-optionOne:
-text: "Star in a Star Wars film"
-votes: (3) ["johndoe", "sarahedo", "tylermcginnis"]
-__proto__: Object
-optionTwo:
-text: "Star in a Marvel film"
-votes: (3) ["mariaal", "gustavotdini", "isadini"]
-__proto__: Object
-timestamp: 1591494853822
-__proto__: Object
-pxv2uv8pxa9sfuoirgtlnd:
-author: "gustavotdini"
-id: "pxv2uv8pxa9sfuoirgtlnd"
-optionOne:
-text: "Find true love today"
-votes: (2) ["mariaal", "gustavotdini"]
-__proto__: Object
-optionTwo:
-text: "Win the lottery next year"
-votes: (4) ["isadini", "johndoe", "sarahedo", "tylermcginnis"]
-__proto__: Object
-timestamp: 1591494262269
-__proto__: Object
-sn6z1zzcsmti1otdcqoxe:
-author: "isadini"
-id: "sn6z1zzcsmti1otdcqoxe"
-optionOne:
-text: "Live in a tree house"
-votes: (3) ["gustavotdini", "isadini", "sarahedo"]
-__proto__: Object
-optionTwo:
-text: " Live in a cave"
-votes: (2) ["johndoe", "tylermcginnis"]
-__proto__: Object
-timestamp: 1591494476404
-__proto__: Object
-tq4xer48fhbm9vpqcuvsif:
-author: "mariaal"
-id: "tq4xer48fhbm9vpqcuvsif"
-optionOne:
-text: "Be Batman"
-votes: (3) ["isadini", "johndoe", "tylermcginnis"]
-__proto__: Object
-optionTwo:
-text: "Be Iron Man"
-votes: (2) ["gustavotdini", "sarahedo"]
-__proto__: Object
-timestamp: 1591495233643
-__proto__: Object
-tuwblq3qisgg6nd4m6nwk:
-author: "isadini"
-id: "tuwblq3qisgg6nd4m6nwk"
-optionOne:
-text: "Be invisible"
-votes: (4) ["mariaal", "isadini", "johndoe", "sarahedo"]
-__proto__: Object
-optionTwo:
-text: "Be able to fly"
-votes: (2) ["gustavotdini", "tylermcginnis"]
-__proto__: Object
-timestamp: 1591494637183
-__proto__: Object
-vthrdm985a262al8qx3do:
-author: "tylermcginnis"
-id: "vthrdm985a262al8qx3do"
-optionOne:
-text: "find $50 yourself"
-votes: (3) ["tylermcginnis", "isadini", "sarahedo"]
-__proto__: Object
-optionTwo:
-text: "have your best friend find $500"
-votes: (4) ["johndoe", "mariaal", "gustavotdini", "johndoe"]
-__proto__: Object
-timestamp: 1489579767190
-__proto__: Object
-xj352vofupe1dqz9emx13r:
-author: "johndoe"
-id: "xj352vofupe1dqz9emx13r"
-optionOne:
-text: "write JavaScript"
-votes: ["gustavotdini"]
-__proto__: Object
-optionTwo:
-text: "write Swift"
-votes: (2) ["tylermcginnis", "sarahedo"]
-__proto__: Object
-timestamp: 1493579767190
-__proto__: Object
-y2hdmd60p895hypsz8uecg:
-author: "gustavotdini"
-id: "y2hdmd60p895hypsz8uecg"
-optionOne:
-text: "Be in history books for something terrible"
-votes: (3) ["gustavotdini", "sarahedo", "tylermcginnis"]
-__proto__: Object
-optionTwo:
-text: " Be forgotten completely after you die"
-votes: (2) ["mariaal", "johndoe"]
-__proto__: Object
-timestamp: 1591494433198
-__proto__: Object
-yxp5wuder8ovu8dk7jsuo:
-author: "gustavotdini"
-id: "yxp5wuder8ovu8dk7jsuo"
-optionOne:
-text: "Never be able to go out during the day"
-votes: ["johndoe"]
-__proto__: Object
-optionTwo:
-text: "Never be able to go out at night"
-votes: (2) ["gustavotdini", "sarahedo"]
-__proto__: Object
-timestamp: 1591494361154
-__proto__: Object
-yz9l21jq6xs0564a6hhcnag:
-author: "gustavotdini"
-id: "yz9l21jq6xs0564a6hhcnag"
-optionOne:
-text: "Have the ability to see 10 minutes into the future"
-votes: (2) ["mariaal", "gustavotdini"]
-__proto__: Object
-optionTwo:
-text: "have the ability to see 150 years into the future"
-votes: (2) ["johndoe", "tylermcginnis"]
-__proto__: Object
-timestamp: 1591494226542
-__proto__: Object
-__proto__: Object
-users:
-
-*/
-
+// API method to fecth Users
 export function _getUsers () {
   return new Promise((res, rej) => {
     setTimeout(() => res({...users}), 1000)
   })
 }
 
+// API method to fecth Question
 export function _getQuestions () {
   return new Promise((res, rej) => {
     setTimeout(() => res({...questions}), 1000)
   })
 }
 
+// API method to save new Question
 export function _saveQuestion (question) {
   return new Promise((res, rej) => {
     const formattedQuestion = formatQuestion(question)
@@ -669,6 +467,7 @@ export function _saveQuestion (question) {
   })
 }
 
+// API method to save a Question answer
 export function _saveQuestionAnswer ({ authedUser, questionId, answer }) {
   return new Promise((res, rej) => {
     setTimeout(() => {
@@ -699,7 +498,9 @@ export function _saveQuestionAnswer ({ authedUser, questionId, answer }) {
   })
 }
 
+// API method to remove a Question answer
 export function _deleteQuestionAnswer ({ authedUser, questionId, answer }) {
+  let newAnswersList = removeItem(questionId , users[authedUser].answers)
   return new Promise((res, rej) => {
     setTimeout(() => {
       users = {
@@ -708,7 +509,7 @@ export function _deleteQuestionAnswer ({ authedUser, questionId, answer }) {
           ...users[authedUser],
           answers: {
             ...users[authedUser].answers,
-            [questionId]: null, ...users[authedUser].answers
+            [questionId]: newAnswersList
           }
         }
       }
@@ -729,6 +530,7 @@ export function _deleteQuestionAnswer ({ authedUser, questionId, answer }) {
   })
 }
 
+// API method to create a new user
 export function _saveUser (user) {
   return new Promise((res, rej) => {
     const formattedUser = formatUser(user)

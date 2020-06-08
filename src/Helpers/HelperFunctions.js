@@ -3,10 +3,12 @@ import gold from '../images/gold.png'
 import silver from '../images/silver.png'
 import bronze from '../images/bronze.png'
 
+// function to generate a rendow ID
 function generateUID () {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
 
+// function to get initial data from API
 export function getInitialData () {
   return Promise.all([
     _getUsers(),
@@ -17,6 +19,7 @@ export function getInitialData () {
   }))
 }
 
+// function to format the question so it´s match the _DATA
 export function formatQuestion (question) {
   return {
     id: generateUID(),
@@ -33,22 +36,27 @@ export function formatQuestion (question) {
   }
 }
 
+// function to acesse _saveQuestion from API
 export function saveQuestion (info) {
   return _saveQuestion(info)
 }
 
+// function to acesse _saveQuestionAnswer from API
 export function saveQuestionAnswer (info) {
   return _saveQuestionAnswer(info)
 }
 
+// function to acesse _deleteQuestionAnswer from API
 export function deleteQuestionAnswer (info) {
   return _deleteQuestionAnswer(info)
 }
 
+// function to acesse _saveUser from API
 export function saveUser (info) {
   return _saveUser(info)
 }
 
+// function that select from the questionlist, all that´s Unenswered
 export function createUnensweredList (questionList, answeredList) {
   let unensweredList = []
   for ( let question in questionList){
@@ -59,6 +67,7 @@ export function createUnensweredList (questionList, answeredList) {
   return unensweredList
 }
 
+// function that select from the questionlist, all that´s answered
 export function createAnsweredList (questionList) {
   let answeredList = []
   for ( let question in questionList){
@@ -67,6 +76,7 @@ export function createAnsweredList (questionList) {
   return answeredList
 }
 
+// function that create a array with objects with all the data to populate the leaderboard
 export function formatLeaderboard (users) {
   let leaderList = []
   for (let user in users){
@@ -90,6 +100,7 @@ export function formatLeaderboard (users) {
   return leaderList
 }
 
+// function that format the percentage to the votes - also test if it´s a NaN
 export function formatPercent (total, option) {
   let percent = (option/total)*100
   if (isNaN(percent)){
@@ -98,6 +109,7 @@ export function formatPercent (total, option) {
   return percent
 }
 
+// function to format the new User so it´s match the _DATA
 export function formatUser (user) {
   return {
     id: user.id,
@@ -109,10 +121,8 @@ export function formatUser (user) {
   }
 }
 
+// function to remove a item from a object - to remove an anwer from the user answer object
 export function removeItem (removedItem, originalObject) {
-  console.log(removedItem)
-  console.log(originalObject)
   let { [removedItem]: _, ...newObject } = originalObject
-  console.log(newObject)
   return newObject
 }

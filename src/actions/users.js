@@ -16,6 +16,7 @@ export function addNewUser (newUser){
   }
 }
 
+/* Add functionality to add new users*/
 export function handleAddNewUser (id, name, password, avatarURL) {
   return (dispatch) => {
     dispatch(showLoading())

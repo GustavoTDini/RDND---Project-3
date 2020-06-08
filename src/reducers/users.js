@@ -37,9 +37,6 @@ export default function users(state = {}, action) {
       }
     case REMOVE_ANSWER_FROM_USER:
       let newAnswersList = removeItem(action.questionId , state[action.authedUser].answers)
-      console.log(newAnswersList)
-      console.log(action.questionId)
-      console.log(state[action.authedUser].answers)
       return {
         ...state,
         [action.authedUser]: {

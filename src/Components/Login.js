@@ -9,7 +9,7 @@ class Login extends Component{
   state ={
     name: '',
     password: '',
-    newUser: false
+    newUser: false,
   }
 
   handleChangeName = (e) => {
@@ -28,17 +28,20 @@ class Login extends Component{
     }))
   }
 
+  // submit new login - it´s tested with the middleware
   handleSubmitLogin = (e) => {
     e.preventDefault()
     const { name, password } = this.state
     const { dispatch } = this.props
     this.setState(() =>({
       name: '',
-      password: ''
+      password: '',
+      loggedIn: true,
     }))
     dispatch(setAuthedUser(name, password))
   }
 
+  // go to the create new user component
   handleNavToNewUser = (e) =>{
     e.preventDefault()
     this.setState(() =>({
@@ -48,10 +51,11 @@ class Login extends Component{
 
   render(){
 
+    // check if newUser is true to redirect
     if (this.state.newUser){
       return <Redirect to="/newUser" push />
     }
-
+    
     return(
       <div className='login-box shadow'>
       <h1 className='login-title'>Would you rather?</h1>
@@ -83,6 +87,5 @@ class Login extends Component{
     )
   }
 }
-
 
 export default connect()(Login);
