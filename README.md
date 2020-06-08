@@ -1,3 +1,7 @@
+# Would You Rather? #
+
+Udacity React Nanodegree Project
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -66,3 +70,23 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+## This Project Uses the following libraries
+
+React-Redux-Loading - to create the loading bar
+
+Redux - to Create the Store
+
+React-Redux - to integrate to Store with the React components, with <Provider/> and connect
+
+React-Router-Dom - to create the routing flux throught the app
+
+Thanks to anashamdani for the Avatar Set
+Found in https://www.titanui.com/50659-flat-rounded-avatar-icon-set/
+
+
+
+
+
+
+
