@@ -10,6 +10,7 @@ class Login extends Component{
     name: '',
     password: '',
     newUser: false,
+    loggedIn: false,
   }
 
   handleChangeName = (e) => {
@@ -36,8 +37,9 @@ class Login extends Component{
     this.setState(() =>({
       name: '',
       password: '',
-      loggedIn: true,
+      loggedIn: true
     }))
+    console.log("Login")
     dispatch(setAuthedUser(name, password))
   }
 
@@ -50,11 +52,17 @@ class Login extends Component{
   }
 
   render(){
+    const { from } = this.props.location.state || { from: { pathname: '/home' } }
 
     // check if newUser is true to redirect
     if (this.state.newUser){
       return <Redirect to="/newUser" push />
     }
+
+    // check if newUser is loggedIn and check if comes from another route and redirect to there, otherwise send to home
+    if (this.state.loggedIn){
+      return <Redirect to={from} push />      
+    } 
     
     return(
       <div className='login-box shadow'>

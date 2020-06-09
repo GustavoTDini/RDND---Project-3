@@ -3,10 +3,11 @@ import { connect } from 'react-redux'
 import Question from "./Question";
 import AnswQuestion from './AnswQuestion'
 import EmptyList from './EmptyList'
-import { createUnensweredList, createAnsweredList } from '../Helpers/HelperFunctions'
+import { createUnensweredList, createAnsweredList, createOrderedList } from '../Helpers/HelperFunctions'
 
 class CardList extends Component {
   render() {
+    console.log("hello")
     const { list, answeredList, unesweredList, myQuestions, questions } = this.props;
     let renderList = []
 
@@ -57,10 +58,10 @@ class CardList extends Component {
 
 function mapStateToProps(state, { authedUser }) {
   //get all possible lists from the Store
-  if (authedUser !== null) {
+  if (state.authedUser !== null) {
     return {
-      answeredList: createAnsweredList(state.users[state.authedUser].answers),
-      unesweredList: createUnensweredList(state.questions, state.users[state.authedUser].answers),
+      answeredList: createOrderedList(createAnsweredList(state.users[state.authedUser].answers), state.questions),
+      unesweredList: createOrderedList(createUnensweredList( state.questions, state.users[state.authedUser].answers), state.questions),
       myQuestions: state.users[state.authedUser].questions,
       questions: state.questions,
     }

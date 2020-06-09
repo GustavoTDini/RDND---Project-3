@@ -9,6 +9,7 @@ class Header extends Component {
   
   // before logout check with the user if he really want to..
   logout = () => {
+    console.log("Logout")
     if (this.props.authedUser !== null){
       if (window.confirm("Are you sure you want to leave?")) { 
         this.props.dispatch(setAuthedUser(null, null))
@@ -18,7 +19,7 @@ class Header extends Component {
     }
   }
 
-  // before login if the user try to access other areas, it will receive an alert
+  //before login if the user try to access other areas, it will receive an alert
   noLoginAlert = (e) => {
     if (this.props.authedUser === null){
       alert("Please Login to Access!")
@@ -30,27 +31,27 @@ class Header extends Component {
     return (
       <header>
         <ul className="header shadow">
-          <li><NavLink to={`/home/${authedUser}`} 
+          <li><NavLink to={`/home`} 
             className='header-items header-left' 
             activeClassName='active' 
             onClick={() => this.noLoginAlert()}>Home</NavLink></li>
-          <li><NavLink to={`/unansweredList/${authedUser}`} 
+          <li><NavLink to={`/unansweredList`} 
             className="header-items header-left" 
             activeClassName='active' 
             onClick={() => this.noLoginAlert()}>Unanswered Questions</NavLink></li>
-          <li><NavLink to={`/questionList/${authedUser}`} 
+          <li><NavLink to={`/questionList`} 
             className="header-items header-left" 
             activeClassName='active' 
             onClick={() => this.noLoginAlert()}>Answered Questions</NavLink></li>
-          <li><NavLink to={`/myquestionsList/${authedUser}`} 
+          <li><NavLink to={`/myquestionsList`} 
             className="header-items header-left" 
             activeClassName='active' 
             onClick={() => this.noLoginAlert()}>My Questions</NavLink></li>
-          <li><NavLink to={`/new/${authedUser}`} 
+          <li><NavLink to={`/add`} 
             className="header-items header-left" 
             activeClassName='active' 
             onClick={() => this.noLoginAlert()}>New Question</NavLink></li>
-          <li><NavLink to={`/leaderboard/${authedUser}`} 
+          <li><NavLink to={`/leaderboard`} 
             className="header-items header-left" 
             activeClassName='active' 
             onClick={() => this.noLoginAlert()}>Leader Board</NavLink></li>

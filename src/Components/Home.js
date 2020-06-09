@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
 import QuestionList from "./QuestionList"
-import { createUnensweredList, createAnsweredList } from '../Helpers/HelperFunctions'
+import { createUnensweredList, createAnsweredList, createOrderedList } from '../Helpers/HelperFunctions'
 
 class Home extends Component {
   state = { 
@@ -36,6 +36,8 @@ class Home extends Component {
   }
 
   render() {
+    console.log(this.props.unesweredList)
+    console.log(this.props.answeredList)
     return (
       <div>
         <div className='login-box shadow'>
@@ -64,8 +66,8 @@ function mapStateToProps(state) {
   if (state.authedUser !== null) {
     return {
       user: state.users[state.authedUser],
-      answeredList: createAnsweredList(state.users[state.authedUser].answers),
-      unesweredList: createUnensweredList( state.questions, state.users[state.authedUser].answers)
+      answeredList: createOrderedList(createAnsweredList(state.users[state.authedUser].answers), state.questions),
+      unesweredList: createOrderedList(createUnensweredList( state.questions, state.users[state.authedUser].answers), state.questions)
     }
   }
   return {}

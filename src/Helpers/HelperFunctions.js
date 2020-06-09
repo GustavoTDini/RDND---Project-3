@@ -56,6 +56,11 @@ export function saveUser (info) {
   return _saveUser(info)
 }
 
+// function that sort the list from timestamp
+export function createOrderedList (questionList, questions) {
+  return questionList.sort((a,b) => questions[b].timestamp - questions[a].timestamp)
+}
+
 // function that select from the questionlist, all that´s Unenswered
 export function createUnensweredList (questionList, answeredList) {
   let unensweredList = []
@@ -64,16 +69,17 @@ export function createUnensweredList (questionList, answeredList) {
       unensweredList = unensweredList.concat(question)
     }
   }
-  return unensweredList
+  return unensweredList.sort((a,b,) => [b].timestamp - [a].timestamp)
 }
 
 // function that select from the questionlist, all that´s answered
 export function createAnsweredList (questionList) {
+  console.log(questionList)
   let answeredList = []
   for ( let question in questionList){
     answeredList = answeredList.concat(question)
   }
-  return answeredList
+  return answeredList.sort((a,b,) => [b].timestamp - [a].timestamp)
 }
 
 // function that create a array with objects with all the data to populate the leaderboard
