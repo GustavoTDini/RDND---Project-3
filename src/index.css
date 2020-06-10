@@ -47,6 +47,10 @@ button:hover {
 	background-color:#21bd44;
 }
 
+.clickable {	
+  cursor:pointer;
+}
+
 
 /* Header Styles */
 

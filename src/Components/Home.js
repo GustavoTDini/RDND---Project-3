@@ -36,8 +36,6 @@ class Home extends Component {
   }
 
   render() {
-    console.log(this.props.unesweredList)
-    console.log(this.props.answeredList)
     return (
       <div>
         <div className='login-box shadow'>

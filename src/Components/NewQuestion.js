@@ -31,8 +31,8 @@ class NewQuestion extends Component{
 
   handleSubmit = (e) => {
     e.preventDefault()
-    //test if the user actually wrote something on the options to submit
-    if (this.state.optionOne === '' || this.state.optionTwo === ''){
+    //test if the user actually wrote something on the options to submit, and test if the two options are t same
+    if (this.state.optionOne === '' || this.state.optionTwo === '' || (this.state.optionOne === this.state.optionTwo)){
       alert('Please choose a Valid Option')
     } else{
           this.props.dispatch(handleAddQuestionAndUser(this.state.optionOne, this.state.optionTwo))

@@ -22,12 +22,12 @@ class AnswQuestion extends Component{
   
   render(){
 
-    /* Test if there´s a chenge in the vote to redirect to the list */
+    /* Test if there´s a change in the vote to redirect to the list */
     if (this.state.changeAnswer){
       return <Redirect
       to={{
         pathname: `/question/${this.props.question.id}`,
-        state: { referrer: 'changedAnswer', questionId: this.props.question.id }
+        state: { infoType: 'toVote', questionId: this.props.question.id }
       }}
       push/>
     }
@@ -63,7 +63,7 @@ class AnswQuestion extends Component{
           </div>
           <span>{`${optionTwo} of ${total} chose this`}</span>
         </div>
-        {this.props.authedUserList ? null : 
+        {this.props.noButton ? null : 
         <button
         className="confirm-btn"
         onClick={(e) => this.handleChangeAnswer(e)}>Change</button>}
@@ -75,8 +75,6 @@ class AnswQuestion extends Component{
 
 /*The mapsStateToProps test if the component is rendering from the list or to vote, and use the correct data*/
 function mapStateToProps(state, props) {
-  console.log(state.questions[props.question].id)
-  console.log(state.users[props.userId])
   if (state.authedUser !== null) {
     return {
       user: state.users[props.userId],

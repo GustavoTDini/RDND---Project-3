@@ -28,6 +28,7 @@ class QuestionList extends Component{
         renderList = list.map((item) => 
         <AnswList
           key={item}
+          question={item}
           option={answers[item]} 
           answer={questions[item][answers[item]].text}/>);
       }

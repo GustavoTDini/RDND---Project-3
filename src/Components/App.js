@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { handleInitialData } from '../actions/shared';
 import CardList from './CardList';
 import NewUser from './NewUser';
-import Question from './Question';
+import QuestionInfo from './QuestionInfo';
 import PrivateRoute from './PrivateRoute'
 import BadRoute from './BadRoute'
 
@@ -34,6 +34,7 @@ class App extends Component {
       }) 
     }
   }
+
   render() {
     const { isAuthed } = this.state
     return (
@@ -44,16 +45,17 @@ class App extends Component {
             <Switch>
               <Route path='/login' component={Login} />
               <Route path='/newUser' component={NewUser} />
-              <PrivateRoute path='/home' component={Home} isAuthed={isAuthed}/>
-              <PrivateRoute path='/unansweredList' component={() => <CardList list='unanswered'/>} isAuthed={isAuthed}/>
-              <PrivateRoute path='/questionList' component={() => <CardList list='questions'/>} isAuthed={isAuthed}/>
-              <PrivateRoute path='/myquestionsList' component={() => <CardList list='myquestions'/>} isAuthed={isAuthed}/>
-              <PrivateRoute path='/add' component={NewQuestion} isAuthed={isAuthed} />
-              <PrivateRoute path='/leaderboard' component={Leaderboard} isAuthed={isAuthed} />
-              <PrivateRoute path='/newUser' component={NewUser} isAuthed={isAuthed} />
-              <PrivateRoute path='/question' component={Question} isAuthed={isAuthed} />
-              <Route path='/404' component={BadRoute}/>
+              <PrivateRoute path='/home' exact component={Home} isAuthed={isAuthed}/>
+              <PrivateRoute path='/unansweredList' exact component={() => <CardList list='unanswered'/>} isAuthed={isAuthed}/>
+              <PrivateRoute path='/questionList' exact component={() => <CardList list='questions'/>} isAuthed={isAuthed}/>
+              <PrivateRoute path='/myquestionsList' exact component={() => <CardList list='myquestions'/>} isAuthed={isAuthed}/>
+              <PrivateRoute path='/add' exact component={NewQuestion} isAuthed={isAuthed} />
+              <PrivateRoute path='/leaderboard' exact component={Leaderboard} isAuthed={isAuthed} />
+              <PrivateRoute path='/newUser' exact component={NewUser} isAuthed={isAuthed} />
+              <PrivateRoute path='/question/' component={QuestionInfo} isAuthed={isAuthed} />
               <Route path='/' component={Login} />
+              <Route path="/error" component={BadRoute} />
+              <Route component={BadRoute}/>
             </Switch>
         </Fragment>
       </Router>

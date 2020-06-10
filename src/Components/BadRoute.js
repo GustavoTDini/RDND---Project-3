@@ -4,7 +4,10 @@ import React from "react"
 const EmptyList = () =>{
     return(
       <div className='question-card shadow'>
-        <h2 className='center-text'>404 - Sorry, would you rather try again??</h2>  
+        <h2 className='center-text'>
+          <p>404 - Sorry, Question Not Found!!</p>
+          <p>Would you rather try again??</p>
+        </h2>   
       </div>
     )
   }

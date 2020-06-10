@@ -20,8 +20,8 @@ class Question extends Component{
   handleChooseOption = (e) => {
     e.preventDefault()
 
-    // if this component is rendering from a redirect, so we can vote
-    if (this.props.location){
+    // if this component is rendering from a call to vote, so we can vote
+    if (this.props.voting){
       // test if the user selected at least one option, if ok dispatch handleAddAnswerToQuestion
       if(this.state.selectedAnswer === ''){
         alert("Please Choose an answer!")
@@ -32,8 +32,8 @@ class Question extends Component{
         }))
       }
     } else {
-      // if it´s not from a redirect, we must direct the user to the voting component
-      this.setState(() =>({
+      // if it´s not to vote, we must direct the user to the voting component
+      this.setState(() =>({ 
         selectedQuestionToVote: true
       }))
     }
@@ -49,7 +49,7 @@ class Question extends Component{
       return <Redirect
       to={{
         pathname: `/question/${this.props.question.id}`,
-        state: { referrer: 'changedAnswer', questionId: this.props.question.id }
+        state: { infoType: 'toVote', questionId: this.props.question.id }
       }}
       push/>
     }
@@ -70,7 +70,7 @@ class Question extends Component{
       <div className='card-content'>
         <h2>Would you rather...</h2>
         <div className={selectedAnswer === 'optionOne' ? 'selected' : ''}>
-          {this.props.location ? 
+          {this.props.voting ? 
             <button
             className="btn-one"
             onClick={(e)=> this.handleSelectOption(e, 'optionOne')}
@@ -81,7 +81,7 @@ class Question extends Component{
         </div>
         < span>Or</ span>
         <div className={selectedAnswer === 'optionTwo' ? 'selected' : ''}>
-        {this.props.location ? 
+        {this.props.voting ? 
             <button
             className="btn-two"
             onClick={(e)=> this.handleSelectOption(e, 'optionTwo')}
@@ -93,7 +93,7 @@ class Question extends Component{
         <button 
         className="confirm-btn"
         onClick={(e)=> this.handleChooseOption(e)}
-        >{this.props.location? 'Confirm' : 'Vote'}</button>
+        >{this.props.voting? 'Confirm' : 'Vote'}</button>
       </div>
     </div>
     )

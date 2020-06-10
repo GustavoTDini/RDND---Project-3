@@ -44,7 +44,7 @@ class CardList extends Component {
             question={item}
             answers={[questions[item].optionOne.text, questions[item].optionTwo.text]}
             userId={questions[item].author}
-            authedUserList={true}/>);
+            noButton={true}/>);
       }
     }
 
